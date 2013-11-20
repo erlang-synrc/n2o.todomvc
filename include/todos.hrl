@@ -1,0 +1,1 @@
+-record(todo, {id, title, completed = false}).

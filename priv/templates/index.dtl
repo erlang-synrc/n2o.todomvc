@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TodoN2O</title>
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body class="learn-bar">
+  <aside class="learn">
+    <header>
+      <h3>N2O</h3>
+      <span class="source-links">
+        <h5>N2O Example</h5>
+        <a href="http://b0oh.com/psto/n2o">Tutorial (Russian)</a>,
+        <a href="https//github.com/b0oh/todon2o">Source</a>
+      </span>
+    </header>
+    <hr>
+    <blockquote class="quote speech-bubble">
+      <p>N2O — The Most Powerful Erlang Web Framework</p>
+      <footer><a href="http://synrc.com/framework/web/">N2O</a></footer>
+    </blockquote>
+    <hr>
+    <footer>
+      <em>
+        If you have other helpful links to share, or find any of the links above no longer work,
+        please <a href="https://github.com/b0oh/todon2o/issues">let us know</a>.
+      </em>
+    </footer>
+  </aside>
+  <section id="todoapp">{{todoapp}}</section>
+  <footer id="info">
+    <p>Double-click to edit a todo</p>
+    <p>Created by <a href="//github.com/b0oh">Dmitry Bushmelev</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+  </footer>
+  <script>{{script}}</script>
+  <script src="/assets/n2o/jquery.js"></script>
+  <script src="/assets/n2o/bullet.js"></script>
+  <script src="/assets/n2o/n2o.js"></script>
+  <script src="/assets/n2o/bert.js"></script>
+
+  <div id="n2ostatus"></div>
+</body>
+</html>

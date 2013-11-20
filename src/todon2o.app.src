@@ -1,0 +1,8 @@
+{application, todon2o, [
+  {description, "TodoMVC N2O implemenation"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [kernel, stdlib]},
+  {mod, {todo_app, []}},
+  {env, []}
+]}.
