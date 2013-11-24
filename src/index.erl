@@ -8,18 +8,18 @@ main() -> #dtl{file = "index", ext = "dtl", bindings = [{todoapp, todoapp()}]}.
 
 sorted_todos() -> lists:sort(fun(#todo{id = Id1}, #todo{id = Id2}) -> Id1 > Id2 end, todos:all()).
 
-todos_partition(Todos) -> lists:partition(fun (#todo{completed = C}) -> C end, Todos).
+todos_partition(Todos) -> lists:partition(fun(#todo{completed = C}) -> C end, Todos).
 
-todo(#todo{id = Id, title = Title, completed = Completed} = Todo) ->
+todo(Pid, #todo{id = Id, title = Title, completed = Completed} = Todo) ->
     Classes = if Completed -> [<<"completed">>]; true -> [] end,
     #li{class = Classes, body = [
       #panel{class = <<"view">>, body = [
-        #check{class = <<"toggle">>, checked = Completed, postback = {toggle, Todo}},
+        #check{class = <<"toggle">>, checked = Completed, postback = {toggle, Todo, Pid}},
         #label{body = Title},
-        #button{class = <<"destroy">>}]},
+        #button{class = <<"destroy">>, postback = {destroy, Todo, Pid}}]},
       #textbox{class = <<"edit">>, value = Title}]}.
 
-todos_body(Todos) -> [todo(T) || T <- Todos].
+todos_body(Pid, Todos) -> [todo(Pid, T) || T <- Todos].
 
 todo_count_body(Todos) -> [#strong{body = integer_to_binary(length(Todos))}, <<" item left">>].
 
@@ -28,6 +28,7 @@ clear_completed_body(Todos) -> [<<"Clear completed (">>, integer_to_binary(lengt
 todoapp() ->
     {ok, Pid} = wf:async(fun loop/0),
     wf:wire(#event_enterkey{postback = {new_todo, Pid}, target = new_todo, sources = [new_todo]}),
+    wf:wire("$('#todo_list').bind('dblclick', function (e) { if (e.target.nodeName == 'LABEL') { $(e.target).closest('li').siblings().removeClass('editing').end().addClass('editing').find('.edit').focus(); }});"),
     Todos = sorted_todos(),
     {Completed, Active} = todos_partition(Todos),
     [
@@ -37,7 +38,7 @@ todoapp() ->
       #section{id = main, body = [
         #check{id = toggle_all, checked = Active =:= [], postback = {toggle_all, Pid}},
         #label{for = toggle_all, body = <<"Mark all as complete">>},
-        #list{id = todo_list, body = todos_body(Todos)}]},
+        #list{id = todo_list, body = todos_body(Pid, Todos)}]},
       #footer{id = footer, body = [
         #span{id = todo_count, body = todo_count_body(Active)},
         #list{id = filters, body = [
@@ -51,7 +52,7 @@ update() ->
     Todos = sorted_todos(),
     {Completed, Active} = todos_partition(Todos),
     wf:wire(wf:f("$('#toggle_all').attr('checked', ~s);", [Active =:= []])),
-    wf:update(todo_list, todos_body(Todos)),
+    wf:update(todo_list, todos_body(self(), Todos)),
     wf:update(todo_count, todo_count_body(Active)),
     wf:update(clear_completed, clear_completed_body(Completed)),
     wf:flush(room).
@@ -81,6 +82,14 @@ event({toggle_all, LoopPid}) ->
 event({clear_completed, LoopPid}) ->
     {Completed, _} = todos_partition(todos:all()),
     [todos:delete(T) || T <- Completed],
+    LoopPid ! update;
+
+event({toggle, #todo{completed = C} = Todo, LoopPid}) ->
+    todos:update(Todo#todo{completed = not(C)}),
+    LoopPid ! update;
+
+event({destroy, Todo, LoopPid}) ->
+    todos:delete(Todo),
     LoopPid ! update;
 
 event(Event) -> error_logger:info_msg("Event: ~p~n", [Event]).
