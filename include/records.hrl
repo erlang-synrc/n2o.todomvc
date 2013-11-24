@@ -1,1 +1,2 @@
+-record(check, {?ELEMENT_BASE(check), checked = false, postback}).
 -record(event_enterkey, {?ACTION_BASE(enterkey), postback, sources}).

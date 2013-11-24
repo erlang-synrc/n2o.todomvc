@@ -149,11 +149,11 @@ input[type="checkbox"] {
 	border-top: 1px dotted #adadad;
 }
 
-label[for='toggle-all'] {
+label[for='toggle_all'] {
 	display: none;
 }
 
-#toggle-all {
+#toggle_all {
 	position: absolute;
 	top: -42px;
 	left: -4px;
@@ -163,14 +163,14 @@ label[for='toggle-all'] {
 	border: none;
 }
 
-#toggle-all:before {
+#toggle_all:before {
 	content: '»';
 	font-size: 28px;
 	color: #d9d9d9;
 	padding: 0 25px 7px;
 }
 
-#toggle-all:checked:before {
+#toggle_all:checked:before {
 	color: #737373;
 }
 
@@ -321,7 +321,7 @@ label[for='toggle-all'] {
 				0 44px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
-#todo-count {
+#todo_count {
 	float: left;
 	text-align: left;
 }
@@ -349,7 +349,7 @@ label[for='toggle-all'] {
 	font-weight: bold;
 }
 
-#clear-completed {
+#clear_completed {
 	float: right;
 	position: relative;
 	line-height: 20px;
@@ -361,7 +361,7 @@ label[for='toggle-all'] {
 	box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
 }
 
-#clear-completed:hover {
+#clear_completed:hover {
 	background: rgba(0, 0, 0, 0.15);
 	box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.3);
 }
@@ -384,7 +384,7 @@ label[for='toggle-all'] {
 */
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	#toggle-all,
+	#toggle_all,
 	#todo_list li .toggle {
 		background: none;
 	}
@@ -393,7 +393,7 @@ label[for='toggle-all'] {
 		height: 40px;
 	}
 
-	#toggle-all {
+	#toggle_all {
 		top: -56px;
 		left: -15px;
 		width: 65px;
