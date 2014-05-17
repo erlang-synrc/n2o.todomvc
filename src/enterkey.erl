@@ -10,4 +10,4 @@ render_action(#event_enterkey{postback = Postback, target = Element, sources = S
      "}});"].
 
 data(Sources) -> "[" ++ string:join([source(atom_to_list(S)) || S <- Sources], ",") ++ "]".
-source(S) -> "Bert.tuple(Bert.atom('" ++ S ++ "'), utf8.toByteArray($('#" ++ S ++ "').vals()))".
+source(S) -> "tuple(atom('" ++ S ++ "'), utf8.toByteArray($('#" ++ S ++ "').val()))".

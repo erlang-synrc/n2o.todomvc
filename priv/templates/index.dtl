@@ -13,13 +13,13 @@
       <span class="source-links">
         <h5>N2O Example</h5>
         <a href="http://b0oh.com/psto/n2o">Tutorial (Russian)</a>,
-        <a href="https//github.com/b0oh/todon2o">Source</a>
+        <a href="http://github.com/b0oh/todon2o">Source</a>
       </span>
     </header>
     <hr>
     <blockquote class="quote speech-bubble">
       <p>N2O — The Most Powerful Erlang Web Framework</p>
-      <footer><a href="http://synrc.com/framework/web/">N2O</a></footer>
+      <footer><a href="http://synrc.com/apps/n2o/doc/web/">N2O</a></footer>
     </blockquote>
     <hr>
     <footer>
@@ -36,11 +36,13 @@
     <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
   </footer>
   <script>{{script}}</script>
-  <script src="/assets/n2o/jquery.js"></script>
-  <script src="/assets/n2o/bullet.js"></script>
-  <script src="/assets/n2o/n2o.js"></script>
-  <script src="/assets/n2o/bert.js"></script>
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/assets/bullet.js"></script>
+  <script src="/assets/n2o.js"></script>
+  <script src="/assets/bert.js"></script>
 
   <div id="n2ostatus"></div>
 </body>
 </html>
+
+

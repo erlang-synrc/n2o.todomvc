@@ -52,9 +52,9 @@ update() ->
     Todos = sorted_todos(),
     {Completed, Active} = todos_partition(Todos),
     wf:wire(wf:f("$('#toggle_all').attr('checked', ~s);", [Active =:= []])),
-    wf:update(todo_list, todos_body(self(), Todos)),
-    wf:update(todo_count, todo_count_body(Active)),
-    wf:update(clear_completed, clear_completed_body(Completed)),
+    wf:update(todo_list, #panel{id=todo_list,body=todos_body(self(), Todos)}),
+    wf:update(todo_count, #panel{id=todo_count,body=todo_count_body(Active)}),
+    wf:update(clear_completed, #panel{id=clear_completed,body=clear_completed_body(Completed)}),
     wf:flush(room).
 
 
@@ -65,7 +65,7 @@ event({new_todo, LoopPid}) ->
     case Todo =/= "" of
         true ->
             todos:insert(Todo),
-            wf:wire("$('#new_todo').val('');"),
+%            wf:wire("$('#new_todo').val('');"),
             LoopPid ! update;
         false -> ok
     end;
